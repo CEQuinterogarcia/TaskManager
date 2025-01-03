@@ -1,0 +1,26 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id        String  @id @default(auto()) @db.ObjectId @map("_id")
+  title     String
+  description String
+  limitDate DateTime
+  status    String
+  userId    String?
+  teamId    String?
+  available Boolean @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([available])
+}

@@ -1,0 +1,30 @@
+
+import 'dotenv/config';
+import * as joi from 'joi' ;
+
+interface EnvironmentVariables{
+    PORT: number;
+    NATS_SERVER: string;
+}
+
+// notifica que variables de entorno no esta
+
+const environmentSchema = joi.object ({
+    PORT: joi.number().required(),
+    NATS_SERVER: joi.string().required()
+}).unknown()
+
+const {error, value} = environmentSchema.validate({
+    ...process.env
+
+});
+
+if (error) {
+   throw new Error(`Environment error ${error.message}`) 
+}
+
+const env: EnvironmentVariables = value
+export const environmentVariables={
+    port: env.PORT,
+    natsServer: env.NATS_SERVER
+}
