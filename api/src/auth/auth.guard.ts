@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
         try {
             // Verificar el token enviándolo al microservicio y esperando una respuesta
             const {user, token: newToken} = await firstValueFrom(
-                this.client.send('virify.token', token)
+                this.client.send('verify.token', token)
             );
             
             // Si el token es válido, agregar el usuario y el nuevo token a la solicitud
