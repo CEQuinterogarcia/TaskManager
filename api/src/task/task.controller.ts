@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { NATS_SERVICE } from 'src/config';
@@ -48,7 +48,7 @@ export class TaskController {
 
   //ASIGNAR TAREA**********************************
 
-  @UseGuards(AuthGuard) @Put('asignar/:id') 
+  @UseGuards(AuthGuard) @Patch('asignar/:id') 
   updateAsignar(@Param('id') id: string,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) 
     updateTakAsignarDto: UpdateTaskAsignarDto,
@@ -66,7 +66,7 @@ export class TaskController {
 
 //ELIMINAR TAREA**********************************
 
-@UseGuards(AuthGuard) @Put('eliminar/:id') 
+@UseGuards(AuthGuard) @Delete(':id') 
 eliminar(@Param('id') id: string)
  {
   console.log(id);
